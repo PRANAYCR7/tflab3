@@ -18,5 +18,5 @@ client_secret        = "aw18Q~JRQoyVHAWJgKNDS0bQEh2ENfCI.NU4XcGe"
 tenant_id            = "7974832e-4b9b-49e6-bc93-b5695f510220"
 }
 output "prefix_check" {
-   value = join("",["$var.prefix"],["RG01"])
+   value = lower(join("",["$var.prefix"],["RG01"]))
 }
