@@ -20,12 +20,12 @@ tenant_id            = "7974832e-4b9b-49e6-bc93-b5695f510220"
 
 
 resource "azurerm_resource_group" "newrg" {
-  name     = "join("",["$var.prefix"],["RG01"])"
+  name     = join("",["$var.prefix"],["RG01"])
   location = "australiaeast"
 }
 
 resource "azurerm_storage_account" "newsa" {
-  name                     = "lower(join("",["$var.prefix"],["RG01"]))"
+  name                     = lower(join("",["$var.prefix"],["RG01"]))
   resource_group_name      = azurerm_resource_group.newrg.name
   location                 = azurerm_resource_group.newrg.location
   account_tier             = "Standard"
