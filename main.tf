@@ -36,6 +36,6 @@ resource "azurerm_storage_account" "newsa" {
 output "rgname" {
    value = join("",["$var.prefix"],["RG01"])
 }
-output "rgname" {
+output "saname" {
    value = lower(join("",["$var.prefix"],["RG01"]))
 }
