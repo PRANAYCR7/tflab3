@@ -17,6 +17,25 @@ client_id            = "81316734-1a33-4d3a-95ff-4254d9f8af62"
 client_secret        = "aw18Q~JRQoyVHAWJgKNDS0bQEh2ENfCI.NU4XcGe"
 tenant_id            = "7974832e-4b9b-49e6-bc93-b5695f510220"
 }
-output "prefix_check" {
+
+
+resource "azurerm_resource_group" "newrg" {
+  name     = "join("",["$var.prefix"],["RG01"])"
+  location = "australiaeast"
+}
+
+resource "azurerm_storage_account" "newsa" {
+  name                     = "lower(join("",["$var.prefix"],["RG01"]))"
+  resource_group_name      = azurerm_resource_group.newrg.name
+  location                 = azurerm_resource_group.newrg.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+}
+
+output "rgname" {
+   value = join("",["$var.prefix"],["RG01"])
+}
+output "rgname" {
    value = lower(join("",["$var.prefix"],["RG01"]))
 }
