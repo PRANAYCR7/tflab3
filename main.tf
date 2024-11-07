@@ -20,7 +20,7 @@ tenant_id            = "7974832e-4b9b-49e6-bc93-b5695f510220"
 
 
 resource "azurerm_resource_group" "newrg" {
-  name     = join("",["$var.prefix"],["RG01"])
+  name     = join("",["${var.prefix}"],["RG01"])
   location = "australiaeast"
 }
 
