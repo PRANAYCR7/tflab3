@@ -1,42 +1,28 @@
+# We strongly recommend using the required_providers block to set the
+# Azure Provider source and version being used
 terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.0.0"
+      version = "=2.46.0"
     }
   }
 }
 
-# Configure the Microsoft Azure Provider
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
 provider "azurerm" {
-#  resource_provider_registrations = "none" # This is only required when the User, Service Principal, or Identity running Terraform lacks the permissions to register Azure Resource Providers.
-  features {}
-
-subscription_id      = "d5093934-1a30-426e-acb0-c14331a9b7fa"
-client_id            = "81316734-1a33-4d3a-95ff-4254d9f8af62"
-client_secret        = "aw18Q~JRQoyVHAWJgKNDS0bQEh2ENfCI.NU4XcGe"
-tenant_id            = "7974832e-4b9b-49e6-bc93-b5695f510220"
+  features {} 
+  client_id       = "00000000-0000-0000-0000-000000000000"
+  client_secret   = "20000000-0000-0000-0000-000000000000"
+  tenant_id       = "10000000-0000-0000-0000-000000000000"
+  subscription_id = "20000000-0000-0000-0000-000000000000"
 }
 
-
-resource "azurerm_resource_group" "newrg" {
-  name     = join("",["${var.prefix}"],["RG01"])
-  location = "australiaeast"
-}
-
-resource "azurerm_storage_account" "newsa" {
-  name                     = lower(join("",["${var.prefix}"],["RG01"]))
-  resource_group_name      = azurerm_resource_group.newrg.name
-  location                 = azurerm_resource_group.newrg.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-
-}
-
-output "rgname" {
-   value = join("",["${var.prefix}"],["RG01"])
-}
-
-output "saname" {
-   value = lower(join("",["${var.prefix}"],["RG01"]))
+#create resource group
+resource "azurerm_resource_group" "rg" {
+    name     = "${var.rgname}"
+    location = "${var.location}"
+    tags      = {
+        Environment = "Terraform Demo"
+    }
 }
